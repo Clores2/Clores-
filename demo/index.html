@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MVVM Test</title>
+    <base href="/" />
+    <link rel="stylesheet" href="../demo/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1 class="we-hide">新年愿望</h1>
+      <h3 class="we-hide">快来建立你的新年愿望吧！</h3>
+      <p id="we-show">
+        大家好！我叫{{name}}，我来自{{city}}，2022年我的新年愿望是{{resolutions}}！
+      </p>
+      <div id="my-form" class="we-hide">
+        <label for="name"
+          >请输入你的名字：<input type="text" v-model="name" required
+        /></label>
+        <br />
+        <label for="city"
+          >你来自哪个城市：<input type="text" v-model="city" required
+        /></label>
+        <br />
+        <label for="resolutions"
+          >写下你的新年愿望吧：<input
+            type="text"
+            v-model="resolutions"
+            required
+        /></label>
+        <br />
+        <button @click="handleClick">提交</button>
+      </div>
+    </div>
+    <script type="module">
+      import Vue from "../src/index.js";
+
+      let app = new Vue({
+        el: "#app",
+        data: {
+          name: "张三",
+          city: "北京",
+          resolutions: "每天都可以很开心",
+        },
+        methods: {
+          handleClick: function () {
+            let hidden = this.$el.querySelectorAll(".we-hide");
+            hidden.forEach((element) => {
+              element.style.display = "none";
+            });
+            this.$el.querySelector("#we-show").style.display = "block";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

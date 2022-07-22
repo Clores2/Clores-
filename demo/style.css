@@ -1,0 +1,37 @@
+body{
+    letter-spacing:10px;
+    background-color: #F9F3FE;
+
+}
+#app{
+    text-align: center;
+    margin-top: 100px;
+    
+}
+#my-form{
+    padding: 10px;
+    line-height: 30px;
+    letter-spacing:5px;
+}
+
+#we-show{
+    display: none;
+    font-size: 20px;
+    font-weight: bolder;
+    color: violet;
+}
+button{
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing:10px;
+    margin-top: 30px;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    /* color: #D3CAF0; */
+    background-color: aliceblue;
+}
+button :hover{
+    background-color: blueviolet;
+}
+
