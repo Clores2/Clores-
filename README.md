@@ -6,22 +6,22 @@
 
 &emsp;&emsp;这是一款仿照 Vue 写的简易版 MVVM 框架。使用了数据代理、数据劫持和发布-订阅模式来实现简单的单向绑定和双向绑定。
 
-![项目结构图](https://flowus.cn/preview/082a53ec-dbd8-44a5-9403-0db99a82f528)
+![项目结构图](https://img-blog.csdnimg.cn/img_convert/64ea02c565355d0667c59b15e994dea6.png)
 
 ---
-<br/>
+
 
 ### **数据代理**
 
-<br/>
+
 
 &emsp;&emsp;使用 Object.defineProperty()方法直接在 MVVM 实例对象上定义一个新属性，或者修改对象的现有属性，并返回此对象，使得外界可以直接访问 data 内的数据，如想要访问 data 对象的 massage 属性时，不用再麻烦的使用 data.massage 进行获取，而是直接使用 massage 获得。
 
-<br/>
+
 
 1.数据的代理：
 
-<br/>
+
 
 ```JavaScript
 _proxyData(data) {
@@ -40,10 +40,10 @@ _proxyData(data) {
     });
   }
 ```
-<br/>
+
 2.函数的代理：
 
-</br>
+
 
 ```JavaScript
 _proxyMethods(methods) {
@@ -57,13 +57,12 @@ _proxyMethods(methods) {
 ```
 
 ---
-<br/>
+
 
 ### **数据劫持**
-<br/>
+
 
 #### **1.Observer**
-<br/>
 
 &emsp;&emsp;Observer 类实现数据劫持，即能够对数据对象的所有属性进行监听，如有变动可拿到最新值并通知订阅者。
 
@@ -134,10 +133,10 @@ export default class Observer {
 
   }
 ```
-<br/>
+
 
 #### **2.Dep**
-<br/>
+
 &emsp;&emsp;Dep 是依赖收集器，它的的作用是收集订阅者以及当数据发生变动时通知订阅者去更新。
 
 &emsp;&emsp;每一个属性都有自身的 dep，接着添加 watcher（watcher 指的是订阅者，dep 和 watcher 是多对多的关系，即一个 dep 可以有多个 watcher，而一个 watcher 也可以有多个 dep）。在每次数据变动时(即 set)，通知自身的 dep，dep 通知其中 watcher 去完成视图更新
@@ -166,10 +165,9 @@ export default class Dep{
     }
 }
 ```
-<br/>
 
 #### **3.Watcher**
-<br/>
+
 &emsp;&emsp;Watcher 作为连接 Observer 和 Compiler（模板编译器）的桥梁，能够订阅并收到每个属性变动的通知，执行指令绑定的相应回调函数，从而更新视图。
 
 &emsp;&emsp;Watcher 类接收由 Compiler 传过来的三个参数：表达式，实例对象和当表达式所对应的数据发生改变的回调函数，并且为每一个 watcher 实例定义一个唯一的 id。
@@ -237,10 +235,10 @@ export default class Watcher {
 ```
 
 ---
-<br/>
+
 
 ### **模板编译（Compiler）**
-<br/>
+
 &emsp;&emsp;Compiler 是模板编译器，对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数
 
 &emsp;&emsp;把原始的 dom 转换成文档片段，通过文档片段来进行复杂的节点操作或创建时，可以避免大量的重绘回流，由此来提高整个页面的性能。
@@ -318,10 +316,10 @@ export default class Compiler {
     }
   }
 ```
-<br/>
+
 
 #### **1.编译元素节点**
-<br/>
+
 &emsp;&emsp;对于元素节点来说，对 v-model，v-text 和 v-bind 和事件指令进行绑定。如果是 v-text，就将表达式的值当作该元素的文本节点的值展示；如果是 v-bind，就将表达式的值传入到其所在的位置，实现属性绑定；如果是 v-model，一方面将 input 的 value 赋值给 data 中相应的属性，实现 View→Model 的更改，另一方面，将刚刚更改的数据赋值给节点的 value，完成视图（View）的更新，从而实现双向绑定。如果是事件指令，则调用 compilerMethods（）函数对其进行编译。
 
 ```JavaScript
@@ -388,10 +386,10 @@ export default class Compiler {
     node.addEventListener(type, fn.bind(scope));
   }
 ```
-<br/>
+
 
 #### **2.编译文本节点**
-<br/>
+
 &emsp;&emsp;编译文本节点主要部分是对插值表达式进行计算。通过正则表达式匹配获取插值表达式中的值，并区分非插值表达式的文本，分别将它们以文本和表达式的方式保存在数组中，最后将其连接成为字符串即可得到文本节点的值。
 
 ```JavaScript
